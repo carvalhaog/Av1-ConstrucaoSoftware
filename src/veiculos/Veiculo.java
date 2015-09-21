@@ -5,7 +5,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/*Essa classe representa um veiculo qualquer, seja ele qual tipo for*/
 public class Veiculo {
+	
+	//Esse atributo é um mapa que pode receber caracteristicas de qualquer tipo de veiculo
 	private HashMap<String, Object> especificacao;
 
 	public Veiculo() {
@@ -28,6 +31,7 @@ public class Veiculo {
 		return especificacao.get(atributo);
 	}
 
+	//Método hashcode necessário pro bom funcionamento do Mapa
 	public int hashCode() {
 		int hash = 0;
 
@@ -46,6 +50,8 @@ public class Veiculo {
 
 	}
 
+	/*Esse método equals retorna true se todos os atributos do veiculo comparado existirem nesse veiculo
+	E os valores dos mesmos forem iguais*/
 	@Override
 	public boolean equals(Object veiculo) {
 		if (veiculo == this) {

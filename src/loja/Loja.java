@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import veiculos.Veiculo;
 
+//Classe que representa a loja
 public class Loja {
 	private ArrayList<Veiculo> estoque;
 	
@@ -18,6 +19,26 @@ public class Loja {
 		this.estoque.add(veiculo);
 	}
 	
+	//Método que exibe uma lista genérica de veiculos. Utilizado para reuso de código de métodos da classe
+	private void listarVeiculos(ArrayList<Veiculo> listaVeiculos){
+		
+		for(Veiculo veiculo : listaVeiculos){
+			Iterator<Entry<String, Object>> iterador = ((Veiculo)veiculo).getEspecificacao().entrySet().iterator();
+		    
+			//enquanto houver uma proxima entrada no mapa
+			while (iterador.hasNext()) {
+		        Map.Entry<String, Object> atributo = (Map.Entry<String, Object>)iterador.next();
+		        String chave = (String)atributo.getKey();
+		        Object valor = atributo.getValue();
+		        
+		       		        
+		        System.out.println(chave + " : " + valor);
+		        System.out.println();
+			}
+		}
+	}
+	
+	//Método que pesquisa se há veiculos iguais a um veiculo de pesquisa passado e lista os que corresponderem
 	public void pesquisarVeiculo(Veiculo veiculoPesquisar){
 		ArrayList<Veiculo> resultado = new ArrayList<Veiculo>();
 		
@@ -34,37 +55,12 @@ public class Loja {
 		else{
 			System.out.println("Foram encontrados os seguintes veiculos com essa especificacao: ");
 			
-			for(Veiculo veiculo : resultado){
-				Iterator<Entry<String, Object>> iterador = ((Veiculo)veiculo).getEspecificacao().entrySet().iterator();
-			    
-				//enquanto houver uma proxima entrada no mapa
-				while (iterador.hasNext()) {
-			        Map.Entry<String, Object> atributo = (Map.Entry<String, Object>)iterador.next();
-			        String chave = (String)atributo.getKey();
-			        Object valor = atributo.getValue();
-			        
-			       		        
-			        System.out.println(chave + " : " + valor);
-			        System.out.println();
-				}
-			}
+			this.listarVeiculos(resultado);
 		}
 	}
 	
+	//Método que lista todos os veiculos do estoque
 	public void listarEstoque(){
-		for(Veiculo veiculo : this.estoque){
-			Iterator<Entry<String, Object>> iterador = ((Veiculo)veiculo).getEspecificacao().entrySet().iterator();
-		    
-			//enquanto houver uma proxima entrada no mapa
-			while (iterador.hasNext()) {
-		        Map.Entry<String, Object> atributo = (Map.Entry<String, Object>)iterador.next();
-		        String chave = (String)atributo.getKey();
-		        Object valor = atributo.getValue();
-		        
-		       		        
-		        System.out.println(chave + " : " + valor);
-		        System.out.println();
-			}
-		}
+		this.listarVeiculos(this.estoque);
 	}
 }

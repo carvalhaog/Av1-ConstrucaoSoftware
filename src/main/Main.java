@@ -1,28 +1,52 @@
 package main;
 
 import loja.Loja;
-import veiculos.TipoVeiculo;
 import veiculos.Veiculo;
-import fabricas.VeiculoPesquisaFabrica;
-import fabricas.VeiculosFactory;
+import fabricas.CarroFactory;
+import fabricas.CarroPesquisaFactory;
+import fabricas.Fabricavel;
+import fabricas.MotoFactory;
+import fabricas.MotoPesquisaFactory;
 
 public class Main {
 
 	public static void main(String[] args) {
 		Loja loja = new Loja();
 		
-		Veiculo moto = VeiculosFactory.criarVeiculo(TipoVeiculo.MOTO);
-		Veiculo carro = VeiculosFactory.criarVeiculo(TipoVeiculo.CARRO);
+		//Cria uma fabrica de carros, cria um novo carro e isere o mesmo no estoque da loja
+		Fabricavel fabrica = new CarroFactory();
+		Veiculo carro = fabrica.criarVeiculo();
+		if(carro != null)
+			loja.adicionarVeiculo(carro);
+		else
+			System.out.println("Falha ao criar o veiculo!");
 		
-		loja.adicionarVeiculo(moto);
-		loja.adicionarVeiculo(carro);
-
+		//Cria uma fabrica de motos, cria uma nova moto e isere a mesma no estoque da loja
+		fabrica = new MotoFactory();
+		Veiculo moto = fabrica.criarVeiculo();
+		if(moto != null)
+			loja.adicionarVeiculo(moto);
+		else
+			System.out.println("Falha ao criar o veiculo!");
+		
+		//Lista o estoque da loja
 		loja.listarEstoque();
 		
-		Veiculo pesquisa = VeiculoPesquisaFabrica.criarVeiculoPesquisa(TipoVeiculo.MOTO);
+		//cria uma moto de pesquisa e pesquisa se há alguma moto que corresponde a essas caracteristicas
+		fabrica = new MotoPesquisaFactory();
+		Veiculo pesquisa = fabrica.criarVeiculo();
+		if(pesquisa != null)
+			loja.pesquisarVeiculo(pesquisa);
+		else
+			System.out.println("Falha ao criar o veiculo!");
 		
-		loja.pesquisarVeiculo(pesquisa);
-		
+		//cria um carro de pesquisa e pesquisa se há algum carro que corresponde a essas caracteristicas
+		fabrica = new CarroPesquisaFactory();
+		pesquisa = fabrica.criarVeiculo();
+		if(pesquisa != null)
+			loja.pesquisarVeiculo(pesquisa);
+		else
+			System.out.println("Falha ao criar o veiculo!");
 	}
 
 }
